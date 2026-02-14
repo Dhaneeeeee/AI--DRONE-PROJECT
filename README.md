@@ -1,0 +1,1 @@
+AI Drone Technology for Human Recovery in Landslide Disaster is designed to quickly locate and assist individuals trapped during a landslide. The AI-powered drone uses thermal imaging, GPS, and real-time data analysis, leveraging machine learning for accurate detection and recovery, aiding swift, life-saving rescue operations.
