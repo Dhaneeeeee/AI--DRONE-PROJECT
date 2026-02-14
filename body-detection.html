@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Human Body Detection</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Human Body Detection</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="cyber-bg">
+    <div class="bg-blur-overlay" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-2;pointer-events:none;backdrop-filter:blur(8px) brightness(1.08);-webkit-backdrop-filter:blur(8px) brightness(1.08);"></div>
+    <div class="bg-video-wrap" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-1;overflow:hidden;">
+        <video id="bg-video" autoplay muted loop playsinline style="width:100vw;height:100vh;object-fit:cover;">
+            <source src="particles.mp4" type="video/mp4">
+        </video>
+    </div>
+    <header class="header-container" style="position:fixed;top:0;left:0;width:100vw;z-index:100;">
+        <h1 class="main-title" style="margin:0;text-align:left;padding-left:32px;color:#00ffe7;">HUMAN BODY DETECTION</h1>
+    </header>
+    <main class="main-content" style="margin-top:80px;margin-bottom:64px;min-height:calc(100vh - 144px);overflow-y:auto;">
+        <section class="container dashboard-panel" style="display:flex; flex-direction:column; align-items:center; justify-content:center;">
+            <h2 style="margin-bottom:16px; letter-spacing:1px; color: var(--secondary); font-family:'Orbitron',sans-serif; font-size:2rem; text-align:center;">Upload Image for Detection</h2>
+            <form id="upload-form" style="display:flex; flex-direction:column; align-items:center; gap:18px; width:100%;">
+                <label for="image-input" style="font-weight:700; color:var(--cyber-neon2); margin-bottom:8px; display:block; text-align:left; font-family:'Orbitron',sans-serif; font-size:1.1em;">Choose an image:</label>
+                <input type="file" id="image-input" accept="image/*" style="padding:12px 20px; border-radius:8px; border:2px solid var(--cyber-neon); background:#181a2b; color:var(--cyber-neon); width:100%; max-width:320px; font-size:1.08em; font-family:'Share Tech Mono',monospace;" required>
+                <button class="check-btn" type="submit" style="background:linear-gradient(90deg, var(--cyber-neon), var(--cyber-neon2)); color:#fff; font-weight:900; border-radius:12px; border:none; box-shadow:0 0 18px 2px var(--cyber-neon2); padding:12px 38px; font-size:1.2em; font-family:'Orbitron',sans-serif; margin-top:10px;">Check</button>
+            </form>
+            <div id="preview" style="margin-top:18px;"></div>
+        </section>
+    </main>
+    <footer class="cyber-footer" style="position:fixed;bottom:0;left:0;width:100vw;z-index:100;">
+        <p>CYBERAUTH SECURITY SYSTEMS &copy; 2025 | ALL NETWORKS MONITORED</p>
+    </footer>
+    <script>
+        document.getElementById('image-input').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const preview = document.getElementById('preview');
+            preview.innerHTML = '';
+            if(file) {
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(file);
+                img.style.maxWidth = '320px';
+                img.style.maxHeight = '220px';
+                img.style.borderRadius = '10px';
+                img.style.marginTop = '8px';
+                preview.appendChild(img);
+            }
+        });
+        document.getElementById('upload-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const file = document.getElementById('image-input').files[0];
+            const preview = document.getElementById('preview');
+            if(!file) {
+                alert('Please select an image.');
+                return;
+            }
+            preview.innerHTML += '<div style="margin-top:12px; color:var(--secondary);">Detecting...</div>';
+            const formData = new FormData();
+            formData.append('image', file);
+            try {
+                const res = await fetch('http://127.0.0.1:5001/body-detection', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await res.json();
+                preview.innerHTML += '<div style="margin-top:12px;">';
+                if (data.detected_objects && data.detected_objects.length > 0) {
+                    preview.innerHTML += `<div style='font-weight:700; color:var(--success); margin-bottom:12px; text-align:center;'>Detected Objects (${data.total_objects}):</div>`;
+                    preview.innerHTML += `<div style='display:flex; flex-direction:column; align-items:center; margin-bottom:16px;'>`;
+                    data.detected_objects.forEach(obj => {
+                        preview.innerHTML += `<div style='display:flex; align-items:center; gap:10px; margin-bottom:6px;'><span style='color:var(--primary); font-weight:600; min-width:80px; display:inline-block;'>${obj.class_name}</span> <span style='color:#888;'>|</span> <span style='color:#333;'>Confidence:</span> <span style='color:var(--success); font-weight:600;'>${(obj.confidence*100).toFixed(1)}%</span></div>`;
+                    });
+                    preview.innerHTML += `</div>`;
+                    preview.innerHTML += `<div style='margin-bottom:8px; text-align:center;'><strong>Summary:</strong></div>`;
+                    preview.innerHTML += `<div style='display:flex; flex-direction:column; align-items:center;'>`;
+                    for (const [cls, count] of Object.entries(data.class_counts)) {
+                        preview.innerHTML += `<div style='margin-bottom:4px;'><span style='color:var(--secondary); font-weight:600;'>${cls}</span>: <span style='font-weight:700;'>${count}</span></div>`;
+                    }
+                    preview.innerHTML += `</div>`;
+                } else {
+                    preview.innerHTML += `<div style='font-weight:700; color:var(--error); text-align:center;'>No Humans detected.</div>`;
+                }
+                preview.innerHTML += '</div>';
+            } catch (err) {
+                preview.innerHTML += `<div style='color:var(--error);'>Detection failed.</div>`;
+            }
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
+                    preview.innerHTML += `<div style='font-weight:700; color:var(--error); text-align:center;'>No objects detected.</div>`;
+                }
+                preview.innerHTML += '</div>';
+            } catch (err) {
+                preview.innerHTML += `<div style='color:var(--error);'>Detection failed.</div>`;
+            }
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Human Recover</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="cyber-bg">
+
+
+  <header class="header-container" style="position:fixed;top:0;left:0;width:100vw;z-index:100;">
+  <h1 class="main-title" style="margin:0;text-align:left;padding-left:32px;color:#00ffe7;">DISASTER MANAGEMENT AND HUMAN RECOVER</h1>
+  </header>
+  <main class="main-content" style="margin-top:80px;margin-bottom:64px;min-height:calc(100vh - 144px);overflow-y:auto;">
+    <div class="container">
+      <div class="auth-container">
+        <div class="tabs">
+          <button class="tab-btn active" data-tab="login">ACCESS LOGIN</button>
+          <button class="tab-btn" data-tab="signup">CREATE ACCOUNT</button>
+        </div>
+        <div class="tab-content">
+          <!-- Login Form -->
+          <form id="login-form" class="form active">
+            <div class="input-group">
+              <i class="fas fa-user"></i>
+              <input type="text" id="login-username" required>
+              <label for="login-username">USER ID</label>
+            </div>
+            <div class="input-group">
+              <i class="fas fa-lock"></i>
+              <input type="password" id="login-password" required>
+              <label for="login-password">PASSWORD</label>
+            </div>
+            <div class="options">
+              <label class="remember">
+                <input type="checkbox">
+                <span class="checkmark"></span>
+                REMEMBER ME
+              </label>
+              <a href="#" class="forgot-link">RECOVER ACCESS</a>
+            </div>
+            <button type="submit" class="submit-btn">
+              <span>SECURE LOGIN <i class="fas fa-fingerprint"></i></span>
+            </button>
+            <div class="divider"><span>OR CONNECT WITH</span></div>
+            <div class="social-login">
+              <button type="button" class="social-btn"><i class="fab fa-google"></i> GOOGLE</button>
+              <button type="button" class="social-btn"><i class="fab fa-github"></i> GITHUB</button>
+            </div>
+          </form>
+
+          <!-- Signup Form -->
+          <form id="signup-form" class="form">
+            <div class="input-group">
+              <i class="fas fa-user"></i>
+              <input type="text" id="signup-username" required>
+              <label for="signup-username">CREATE USER ID</label>
+            </div>
+            <div class="input-group">
+              <i class="fas fa-envelope"></i>
+              <input type="email" id="signup-email" required>
+              <label for="signup-email">EMAIL ADDRESS</label>
+            </div>
+            <div class="input-group">
+              <i class="fas fa-lock"></i>
+              <input type="password" id="signup-password" required>
+              <label for="signup-password">SET PASSWORD</label>
+              
+            </div>
+            <div class="input-group">
+              <i class="fas fa-lock"></i>
+              <input type="password" id="signup-confirm" required>
+              <label for="signup-confirm">CONFIRM PASSWORD</label>
+            </div>
+            <div class="options">
+              <label class="remember">
+                <input type="checkbox" required>
+                <span class="checkmark"></span>
+                I ACCEPT THE <a href="#">TERMS</a> AND <a href="#">PRIVACY POLICY</a>
+              </label>
+            </div>
+            <button type="submit" class="submit-btn">
+              <span>CREATE ACCOUNT</span> <i class="fas fa-server"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="cyber-footer" style="position:fixed;bottom:0;left:0;width:100vw;z-index:100;">
+    <p>CYBERAUTH SECURITY SYSTEMS © 2023 | ALL NETWORKS MONITORED</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

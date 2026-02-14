@@ -1,0 +1,172 @@
+/* Cyber Glossy Theme - Neat Centered Layout */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Share+Tech+Mono&display=swap');
+
+:root {
+  --cyber-neon: #00ffe7;
+  --cyber-neon2: #7C4DFF;
+  --cyber-panel: rgba(12, 14, 22, 0.92);
+
+  --cyber-glow: 0 0 20px var(--cyber-neon);
+  --cyber-border: 2px solid var(--cyber-neon);
+  --cyber-radius: 14px;
+}
+
+body.cyber-bg {
+  margin: 0;
+  background: linear-gradient(135deg, #05060f 60%, #0f1220 100%) fixed;
+  color: #fff;
+  font-family: 'Share Tech Mono', monospace;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header */
+.header-container {
+  text-align: left;
+  padding: 0;
+  margin-top: 0.2cm;
+  background: rgba(20,30,60,0.85);
+  border-bottom: 2px solid #00ffe7;
+  box-shadow: 0 2px 16px 0 rgba(0,255,255,0.12);
+}
+.main-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.2rem;
+  color: var(--cyber-neon);
+  text-shadow: 0 0 14px var(--cyber-neon2), 0 0 8px var(--cyber-neon);
+  letter-spacing: 2px;
+}
+
+/* Center container */
+.main-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+.container {
+  width: 100%;
+  max-width: 420px;
+  background: var(--cyber-panel);
+  border: var(--cyber-border);
+  border-radius: var(--cyber-radius);
+  box-shadow: var(--cyber-glow);
+  padding: 30px;
+}
+
+
+/* Tabs */
+.tabs {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.tab-btn {
+  flex: 1;
+  margin: 0 5px;
+  padding: 12px;
+  background: transparent;
+  border: var(--cyber-border);
+  color: var(--cyber-neon);
+  font-family: 'Orbitron', sans-serif;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.tab-btn.active,
+.tab-btn:hover {
+  background: linear-gradient(90deg, var(--cyber-neon), var(--cyber-neon2));
+  color: #000;
+  box-shadow: var(--cyber-glow);
+}
+
+/* Forms */
+.form {
+  display: none;
+}
+.form.active {
+  display: block;
+}
+
+/* Input groups */
+.input-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+.input-group input {
+  width: 80%;
+  padding: 12px 40px 12px 1cm;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid var(--cyber-neon2);
+  border-radius: 0;
+  box-shadow: none;
+  padding: 12px 40px 12px 1cm;
+  color: var(--cyber-neon);
+  padding-right: 40px;
+}
+
+
+.input-group input:focus {
+  border-color: var(--cyber-neon);
+  box-shadow: 0 0 10px var(--cyber-neon);
+}
+.input-group label {
+  position: absolute;
+  top: -16px;
+  left: 40px;
+  font-size: 0.75rem;
+  color: #aaa;
+}
+.input-group i {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: var(--cyber-neon);
+}
+
+/* Buttons */
+.submit-btn, .social-btn {
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px;
+  background: linear-gradient(90deg, var(--cyber-neon), var(--cyber-neon2));
+  border: none;
+  border-radius: 8px;
+  color: #000;
+  font-family: 'Orbitron', sans-serif;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.submit-btn:hover, .social-btn:hover {
+  box-shadow: var(--cyber-glow);
+  transform: scale(1.03);
+}
+
+/* Options + Divider */
+.options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  margin-bottom: 15px;
+}
+.divider {
+  text-align: center;
+  margin: 15px 0;
+  font-size: 0.7rem;
+  color: #888;
+}
+
+/* Footer */
+.cyber-footer {
+  text-align: center;
+  padding: 15px;
+  font-size: 0.75rem;
+  color: var(--cyber-neon);
+  border-top: var(--cyber-border);
+  box-shadow: var(--cyber-glow);
+}

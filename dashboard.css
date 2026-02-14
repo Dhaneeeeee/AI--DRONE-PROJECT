@@ -1,0 +1,43 @@
+/* Dashboard specific overrides that reuse the global .container look */
+
+.dashboard-panel {
+  --cyber-neon: #00ffe7;
+  --cyber-neon2: #7C4DFF;
+  --cyber-panel: rgba(12, 14, 22, 0.92);
+  --cyber-glow: 0 0 20px var(--cyber-neon);
+  --cyber-border: 2px solid var(--cyber-neon);
+  --cyber-radius: 14px;
+  margin: 0;
+  background: #fff;
+  color: #181a2b;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1.05em;
+  display: flex;
+  flex-direction: column;
+  max-width: 700px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 32px 24px;
+  border-radius: 24px;
+  box-shadow: 0 0 32px 4px var(--cyber-neon2), 0 2px 12px rgba(16,24,40,0.08) inset;
+  text-align: center;
+  border: var(--cyber-border);
+}
+
+.dashboard-panel ul { list-style: none; padding: 0; margin: 0 0 18px 0; }
+.dashboard-panel li { padding: 12px 0; font-size: 1.05em; border-bottom: 1px dashed rgba(255,255,255,0.04); }
+.dashboard-panel li:last-child { border-bottom: none; }
+
+.check-btn {
+    padding: 8px 26px;
+    font-size: 1em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    color: #000000;
+    font-weight: 800;
+    border: 1px solid rgba(255, 0, 0, 0.06);
+}
+
+.check-btn:hover { filter: brightness(0.95); }

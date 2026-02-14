@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<body class="cyber-bg">
+        <div class="bg-blur-overlay" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-2;pointer-events:none;backdrop-filter:blur(8px) brightness(1.08);-webkit-backdrop-filter:blur(8px) brightness(1.08);"></div>
+    <div class="bg-video-wrap" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-1;overflow:hidden;">
+        <video id="bg-video" autoplay muted loop playsinline style="width:100vw;height:100vh;object-fit:cover;">
+            <source src="particles.mp4" type="video/mp4">
+        </video>
+    </div>
+    <header class="header-container" style="position:fixed;top:0;left:0;width:100vw;z-index:100;">
+        <h1 class="main-title" style="margin:0;text-align:left;padding-left:32px;color:#00ffe7;">DISASTER MANAGEMENT & HUMAN RECOVER</h1>
+    </header>
+    <main class="main-content" style="margin-top:80px;margin-bottom:64px;min-height:calc(100vh - 144px);overflow-y:auto;">
+        <section class="container dashboard-panel">
+            <h2 style="margin-bottom:16px; letter-spacing:1px; color: var(--secondary);">Select Operation</h2>
+            <form id="operation-form" style="display:flex; flex-direction:column; align-items:center; gap:18px; width:100%;">
+                <div style="width:100%; max-width:320px;">
+                    <label for="operation-select" style="font-weight:700; color:var(--cyber-neon2); margin-bottom:8px; display:block; text-align:left;">Choose a function:</label>
+                    <select id="operation-select" name="operation" style="width:100%; padding:12px 10px; border-radius:8px; border:2px solid var(--cyber-neon); font-size:1.08em; background:rgba(18,22,34,0.98); color:var(--cyber-neon);">
+                        <option value="" selected disabled>Select an option</option>
+                        <option value="body">Human Body Detection</option>
+                        <option value="voice">Voice Recognition</option>
+                    </select>
+                </div>
+                <button class="check-btn" type="submit" style="background:linear-gradient(90deg, var(--cyber-neon), var(--cyber-neon2)); color:#fff; font-weight:900; border-radius:8px; border:none; box-shadow:0 0 12px 2px var(--cyber-neon2); padding:10px 28px; font-size:1.1em;">Check</button>
+            </form>
+        </section>
+    </main>
+    <footer class="cyber-footer" style="position:fixed;bottom:0;left:0;width:100vw;z-index:100;">
+        <p>CYBERAUTH SECURITY SYSTEMS &copy; 2025 | ALL NETWORKS MONITORED</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            const form = document.getElementById('operation-form');
+            if(form) {
+                form.addEventListener('submit', function(e){
+                    e.preventDefault();
+                    const op = document.getElementById('operation-select').value;
+                    if(op === 'body') {
+                        window.location.href = 'body-detection.html';
+                    } else if(op === 'voice') {
+                        window.location.href = 'voice-recognition.html';
+                    } else {
+                        alert('Please select an option.');
+                    }
+                });
+            }
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

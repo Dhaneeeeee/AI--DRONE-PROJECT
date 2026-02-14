@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Recognition</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="cyber-bg">
+    <div class="bg-blur-overlay" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-2;pointer-events:none;backdrop-filter:blur(8px) brightness(1.08);-webkit-backdrop-filter:blur(8px) brightness(1.08);"></div>
+    <div class="bg-video-wrap" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-1;overflow:hidden;">
+        <video id="bg-video" autoplay muted loop playsinline style="width:100vw;height:100vh;object-fit:cover;">
+            <source src="particles.mp4" type="video/mp4">
+        </video>
+    </div>
+    <header class="header-container" style="position:fixed;top:0;left:0;width:100vw;z-index:100;">
+        <h1 class="main-title" style="margin:0;text-align:left;padding-left:32px;color:#00ffe7;">VOICE RECOGNITION</h1>
+    </header>
+    <main class="main-content" style="margin-top:80px;margin-bottom:64px;min-height:calc(100vh - 144px);overflow-y:auto;">
+        <section class="container dashboard-panel" style="display:flex; flex-direction:column; align-items:center; justify-content:center;">
+            <h2 style="margin-bottom:16px; letter-spacing:1px; color: var(--secondary); font-family:'Orbitron',sans-serif; font-size:2rem; text-align:center;">Upload Audio for Recognition</h2>
+            <form id="upload-form" style="display:flex; flex-direction:column; align-items:center; gap:18px; width:100%;">
+                <label for="audio-input" style="font-weight:700; color:var(--cyber-neon2); margin-bottom:8px; display:block; text-align:left; font-family:'Orbitron',sans-serif; font-size:1.1em;">Choose an audio file:</label>
+                <input type="file" id="audio-input" accept="audio/*" style="padding:12px 20px; border-radius:8px; border:2px solid var(--cyber-neon); background:#181a2b; color:var(--cyber-neon); width:100%; max-width:320px; font-size:1.08em; font-family:'Share Tech Mono',monospace;" required>
+                <button class="check-btn" type="submit" style="background:linear-gradient(90deg, var(--cyber-neon), var(--cyber-neon2)); color:#fff; font-weight:900; border-radius:12px; border:none; box-shadow:0 0 18px 2px var(--cyber-neon2); padding:12px 38px; font-size:1.2em; font-family:'Orbitron',sans-serif; margin-top:10px;">Check</button>
+            </form>
+            <div id="preview" style="margin-top:18px;"></div>
+        </section>
+    </main>
+    <footer class="cyber-footer" style="position:fixed;bottom:0;left:0;width:100vw;z-index:100;">
+        <p>CYBERAUTH SECURITY SYSTEMS &copy; 2025 | ALL NETWORKS MONITORED</p>
+    </footer>
+    <script>
+        document.getElementById('upload-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const file = document.getElementById('audio-input').files[0];
+            const preview = document.getElementById('preview');
+            if (!file) {
+                alert('Please select an audio file.');
+                return;
+            }
+            preview.innerHTML = '<div style="margin-top:12px; color:var(--secondary);">Recognizing...</div>';
+            try {
+                const formData = new FormData();
+                formData.append("file", file);
+                const res = await fetch("http://127.0.0.1:5000/voice-recognition", {
+                    method: "POST",
+                    body: formData
+                });
+                const data = await res.json();
+                if (data.transcript) {
+                    preview.innerHTML = `<div style="color:#1a237e; background:#e3f2fd; padding:10px; border-radius:6px; margin-top:12px;"><strong>Transcript:</strong> ${data.transcript}</div>`;
+                } else if (data.status === "error") {
+                    preview.innerHTML = `<div style="color:#b71c1c; background:#ffebee; padding:10px; border-radius:6px; margin-top:12px;"><strong>Error:</strong> ${data.message || JSON.stringify(data)}</div>`;
+                } else if (data.human_voice === false) {
+                    preview.innerHTML = `<div style="color:#f57c00; background:#fff3e0; padding:10px; border-radius:6px; margin-top:12px;"><strong>Notice:</strong> ${data.message || 'No speech detected.'}</div>`;
+                } else {
+                    preview.innerHTML = `<div style="color:#00695c; background:#e0f2f1; padding:10px; border-radius:6px; margin-top:12px;">${JSON.stringify(data)}</div>`;
+                }
+            } catch (err) {
+                console.error("Fetch error:", err);
+                preview.innerHTML = `<div style="color:red; margin-top:12px;">Error connecting to server.</div>`;
+            }
+        });
+    </script>
+</body>
+</html>
